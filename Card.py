@@ -51,3 +51,10 @@ def createColorStack(color):
                 colorStack.append(Card(color, x))
     print(colorStack[0].getColor())
     return colorStack
+
+
+def createStackOfCards():
+    cardStack = []
+    for x in Color:
+        cardStack.append(createColorStack(x))
+    return cardStack
