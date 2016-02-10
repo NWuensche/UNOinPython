@@ -35,3 +35,19 @@ class Card():
 
     def getValue(self):
         return self.value
+
+
+def createColorStack(color):
+#    s = Card(Color.red,Value.zero)
+#    colorStack = [s]
+    colorStack = []
+
+    if(color.value < 4):
+        for x in Value:
+            if(x.value == 0):
+                colorStack.append(Card(color, x))
+            else:
+                colorStack.append(Card(color, x))
+                colorStack.append(Card(color, x))
+    print(colorStack[0].getColor())
+    return colorStack
