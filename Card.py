@@ -49,7 +49,6 @@ def createColorStack(color):
             else:
                 colorStack.append(Card(color, x))
                 colorStack.append(Card(color, x))
-    print(colorStack[0].getColor())
     return colorStack
 
 
