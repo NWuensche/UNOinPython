@@ -23,3 +23,15 @@ class Value(Enum):
     draw2 = 11
     skip = 12
     revese = 13
+
+
+class Card():
+    def __init__(self, color, value):
+        self.color = color
+        self.value = value
+
+    def getColor(self):
+        return self.color.value
+
+    def getValue(self):
+        return self.value
