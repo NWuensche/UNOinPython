@@ -25,6 +25,8 @@ class Values(Enum):
     revese = 13
 
 
+
+
 class Card():
 
     def __init__(self, color, value):
@@ -51,7 +53,7 @@ def createColorStack(color):
     return colorStack
 
 
-def createStackOfCards():
+def initStackOfCards():
     cardStack = []
     for color in Colors:
         cardStack.append(createColorStack(color))
