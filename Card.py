@@ -1,5 +1,6 @@
 import random
 from enum import Enum
+CONST_START_NUMBER_OF_HANDS = 7
 
 
 class Colors(Enum):
@@ -26,8 +27,6 @@ class Values(Enum):
     revese = 13
 
 
-
-
 class Card():
 
     def __init__(self, color, value):
@@ -38,7 +37,7 @@ class Card():
         return self.color.value
 
     def getValue(self):
-        return self.value
+        return self.value.value
 
 
 def createColorStack(color):
@@ -60,8 +59,18 @@ def initStackOfCards():
         cardStack.extend(createColorStack(color))
     return cardStack
 
+
 def shuffleDeckofCards(stack):
-    for i in range(500):
+    for i in range(1000):
         r1 = random.randrange(len(stack))
         r2 = random.randrange(len(stack))
-        stack[r1],stack[r2] = stack[r2],stack[r1]
+        stack[r1], stack[r2] = stack[r2], stack[r1]
+
+def drawCard(stack):
+    return(stack.pop(0))
+
+def initHand(stack):
+    hand = []
+    for card in range(CONST_START_NUMBER_OF_HANDS):
+        hand.append(stack.pop(0))
+    return hand
