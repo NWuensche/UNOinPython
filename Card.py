@@ -1,3 +1,4 @@
+import random
 from enum import Enum
 
 
@@ -56,5 +57,11 @@ def createColorStack(color):
 def initStackOfCards():
     cardStack = []
     for color in Colors:
-        cardStack.append(createColorStack(color))
+        cardStack.extend(createColorStack(color))
     return cardStack
+
+def shuffleDeckofCards(stack):
+    for i in range(500):
+        r1 = random.randrange(len(stack))
+        r2 = random.randrange(len(stack))
+        stack[r1],stack[r2] = stack[r2],stack[r1]
