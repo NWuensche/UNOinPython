@@ -1,14 +1,14 @@
 from enum import Enum
 
 
-class Color(Enum):
+class Colors(Enum):
     blue = 0
     red = 1
     yellow = 2
     green = 3
 
 
-class Value(Enum):
+class Values(Enum):
     zero = 0
     one = 1
     two = 2
@@ -26,6 +26,7 @@ class Value(Enum):
 
 
 class Card():
+
     def __init__(self, color, value):
         self.color = color
         self.value = value
@@ -38,22 +39,20 @@ class Card():
 
 
 def createColorStack(color):
-#    s = Card(Color.red,Value.zero)
-#    colorStack = [s]
     colorStack = []
 
     if(color.value < 4):
-        for x in Value:
-            if(x.value == 0):
-                colorStack.append(Card(color, x))
+        for value in Values:
+            if(value.value == 0):
+                colorStack.append(Card(color, value))
             else:
-                colorStack.append(Card(color, x))
-                colorStack.append(Card(color, x))
+                colorStack.append(Card(color, value))
+                colorStack.append(Card(color, value))
     return colorStack
 
 
 def createStackOfCards():
     cardStack = []
-    for x in Color:
-        cardStack.append(createColorStack(x))
+    for color in Colors:
+        cardStack.append(createColorStack(color))
     return cardStack
