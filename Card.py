@@ -34,10 +34,10 @@ class Card():
         self.value = value
 
     def getColor(self):
-        return self.color.value
+        return self.color.name
 
     def getValue(self):
-        return self.value.value
+        return self.value.name
 
 
 def createColorStack(color):
@@ -66,8 +66,10 @@ def shuffleDeckofCards(stack):
         r2 = random.randrange(len(stack))
         stack[r1], stack[r2] = stack[r2], stack[r1]
 
+
 def drawCard(stack):
     return(stack.pop(0))
+
 
 def initHand(stack):
     hand = []
@@ -75,11 +77,13 @@ def initHand(stack):
         hand.append(stack.pop(0))
     return hand
 
+
 def someoneWon(handsOfCards):
     for hand in handsOfCards:
         if len(hand) == 0:
             return True
     return False
+
 
 def showDirection(direction):
     if(direction == 1):
@@ -87,15 +91,19 @@ def showDirection(direction):
     else:
         print("Direction Counter-Clockwise")
 
+
 def showHand(hand):
     whichCard = 0
     for card in hand:
-        print(card.getValue() +" "+ card.getColor() + " -> " + whichCard )
+        print("" + str(card.getValue()) + " " + str(card.getColor()) + " -> " + str(whichCard))
+        whichCard+=1
 
-def showCurrentScreen(hand,direction):
+
+def showCurrentScreen(hand, direction):
     showDirection(direction)
     showHand(hand)
 
+
 def playCard(hand):
-    whichCard = int(raw_input("Which Card you want to play"))
-    return Card.pop(whichCard)
+    whichCard = int(input("Which Card you want to play"))
+    return hand.pop(whichCard)
