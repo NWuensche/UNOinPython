@@ -74,3 +74,28 @@ def initHand(stack):
     for card in range(CONST_START_NUMBER_OF_HANDS):
         hand.append(stack.pop(0))
     return hand
+
+def someoneWon(handsOfCards):
+    for hand in handsOfCards:
+        if len(hand) == 0:
+            return True
+    return False
+
+def showDirection(direction):
+    if(direction == 1):
+        print("Direction: Clockwise")
+    else:
+        print("Direction Counter-Clockwise")
+
+def showHand(hand):
+    whichCard = 0
+    for card in hand:
+        print(card.getValue() +" "+ card.getColor() + " -> " + whichCard )
+
+def showCurrentScreen(hand,direction):
+    showDirection(direction)
+    showHand(hand)
+
+def playCard(hand):
+    whichCard = int(raw_input("Which Card you want to play"))
+    return Card.pop(whichCard)
