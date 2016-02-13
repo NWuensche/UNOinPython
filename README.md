@@ -10,7 +10,7 @@ This is a UNO Card Game, completely written in Python 3
 - give every player his cards(7)                    ✓
 - throw card                                        ✓
 - show own cards                                    ✓
-- draw one card when it's your turn
+- draw one card                                     
 - reshuffle cards, if draw stack is empty
 - screen player's name
 - screen in which direction the game's going        ✓
@@ -20,3 +20,7 @@ This is a UNO Card Game, completely written in Python 3
 - How to look, if thrown card is valid?
 - What to do, if you have to pass?
 - Computer has to look, if you really have to pass
+- When you draw card, you can throw it immediately
+- You have to throw card, if you can
+- Play to 100 Points
+- Create (good) KI
