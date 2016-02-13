@@ -89,9 +89,9 @@ def someoneWon(handsOfCards):
 
 def showDirection(direction):
     if(direction == 1):
-        print("Direction: Clockwise")
+        print("Direction: Clockwise\t",end="")
     else:
-        print("Direction Counter-Clockwise")
+        print("Direction Counter-Clockwise",end="")
 
 
 def showHand(hand):
@@ -103,12 +103,11 @@ def showHand(hand):
 def clearScreen():
     os.system("cls" if os.name == "nt" else "clear")
 
-def showCurrentScreen(hand, direction):
+def showCurrentScreen(hand, direction,lastCard):
     clearScreen()
     showDirection(direction)
+    showLastCard(lastCard)
     showHand(hand)
-    return playCard(hand)
-    showLastCard(playCard(hand))# wird gelöscht
 
 
 def playCard(hand):
@@ -116,4 +115,7 @@ def playCard(hand):
     return hand.pop(whichCard)
 
 def showLastCard(lastCard):
-    print ("Last Card: " +lastCard.getValue()+ " " + lastCard.getColor())
+    try:
+        print("Last Card: " +str(lastCard.getValue())+ " " + str(lastCard.getColor()))
+    except:
+        print("Last Card: - ")
