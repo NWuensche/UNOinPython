@@ -1,5 +1,7 @@
 import random
+import os
 from enum import Enum
+
 CONST_START_NUMBER_OF_HANDS = 7
 
 
@@ -98,12 +100,20 @@ def showHand(hand):
         print("" + str(card.getValue()) + " " + str(card.getColor()) + " -> " + str(whichCard))
         whichCard+=1
 
+def clearScreen():
+    os.system("cls" if os.name == "nt" else "clear")
 
 def showCurrentScreen(hand, direction):
+    clearScreen()
     showDirection(direction)
     showHand(hand)
+    return playCard(hand)
+    showLastCard(playCard(hand))# wird gelöscht
 
 
 def playCard(hand):
     whichCard = int(input("Which Card you want to play"))
     return hand.pop(whichCard)
+
+def showLastCard(lastCard):
+    print ("Last Card: " +lastCard.getValue()+ " " + lastCard.getColor())
