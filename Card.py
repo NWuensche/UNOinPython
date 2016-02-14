@@ -106,35 +106,43 @@ def clearScreen():
     os.system("cls" if os.name == "nt" else "clear")
 
 
-def showCurrentScreen(hand, direction, lastCard):
+def showCurrentScreen(hand, direction, lastCard, playerName):
     clearScreen()
+    showPlayerName(playerName)
     showDirection(direction)
     showLastCard(lastCard)
     showHand(hand)
+
+
+def showPlayerName(playerName):
+    print("Name: " + playerName + "\t", end="")
+
 
 def sameColor(card, lastCard):
     if card.getColor() == lastCard.getColor():
         return True
     return False
 
+
 def sameValue(card, lastCard):
     if card.getValue() == lastCard.getValue():
         return True
     return False
 
+
 def canBeThrown(card, lastCard):
-    if(sameColor(card,lastCard) or sameValue(card,lastCard)):
+    if(sameColor(card, lastCard) or sameValue(card, lastCard)):
         return True
     return False
 
 
-def playCard(hand,lastCard):
+def playCard(hand, lastCard):
     try:
         whichCard = int(input("Which Card you want to play: "))
     except:
-        #TODO better handling with ^c, ^d
+        # TODO better handling with ^c, ^d
         #print("Invalid Input")
-        #playCard(hand)
+        # playCard(hand)
         exit(0)
     print(hand[whichCard].getColor())
     if(canBeThrown(hand[whichCard], lastCard)):
@@ -142,7 +150,7 @@ def playCard(hand,lastCard):
         return thrownCard
     else:
         print("Can't be thrown!")
-        playCard(hand,lastCard)
+        playCard(hand, lastCard)
 
 
 def showLastCard(lastCard):
@@ -152,3 +160,10 @@ def showLastCard(lastCard):
     except:
         print("Last Card: - ")
         # TODO problem skip Last-Card
+
+
+def getNames(numberOfPlayers):
+    names = []
+    for i in range(numberOfPlayers):
+        names.append(input("What's the name of Player " + str(i + 1)))
+    return names
