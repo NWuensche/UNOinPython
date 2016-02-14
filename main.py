@@ -1,4 +1,5 @@
 import Card
+import CurrentScreen
 
 cardStack = Card.initStackOfCards()
 Card.shuffleDeckofCards(cardStack)
@@ -11,7 +12,7 @@ direction = 1
 lastCard = Card.drawCard(cardStack)
 names = Card.getNames(numberOfPlayers)
 while Card.someoneWon(handsOfCards) == False:
-    Card.showCurrentScreen(
+    CurrentScreen.showCurrentScreen(
         handsOfCards[whichPlayer], direction, lastCard, names[whichPlayer])
     lastCard = Card.playCard(handsOfCards[whichPlayer], lastCard)
     whichPlayer = (whichPlayer + 1) % numberOfPlayers

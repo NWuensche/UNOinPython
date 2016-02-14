@@ -1,5 +1,4 @@
 import random
-import os
 from enum import Enum
 
 CONST_START_NUMBER_OF_HANDS = 7
@@ -87,39 +86,8 @@ def someoneWon(handsOfCards):
     return False
 
 
-def showDirection(direction):
-    if(direction == 1):
-        print("Direction: Clockwise\t", end="")
-    else:
-        print("Direction Counter-Clockwise", end="")
-
-
-def showHand(hand):
-    whichCard = 0
-    for card in hand:
-        print("" + str(card.getValue()) + " " +
-              str(card.getColor()) + " -> " + str(whichCard))
-        whichCard += 1
-
-
-def clearScreen():
-    os.system("cls" if os.name == "nt" else "clear")
-
-
-def showCurrentScreen(hand, direction, lastCard, playerName):
-    clearScreen()
-    showPlayerName(playerName)
-    showDirection(direction)
-    showLastCard(lastCard)
-    showHand(hand)
-
-
-def showPlayerName(playerName):
-    print("Name: " + playerName + "\t", end="")
-
-
 def sameColor(card, lastCard):
-    if card.getColor() == lastCard.getColor():
+    if card.getColor() == lastCard.getColor:
         return True
     return False
 
@@ -153,17 +121,8 @@ def playCard(hand, lastCard):
         playCard(hand, lastCard)
 
 
-def showLastCard(lastCard):
-    try:
-        print("Last Card: " + str(lastCard.getValue()) +
-              " " + str(lastCard.getColor()))
-    except:
-        print("Last Card: - ")
-        # TODO problem skip Last-Card
-
-
 def getNames(numberOfPlayers):
     names = []
     for i in range(numberOfPlayers):
-        names.append(input("What's the name of Player " + str(i + 1)))
+        names.append(input("What's the name of Player " + str(i + 1) + " "))
     return names
