@@ -14,6 +14,9 @@ def showHand(hand):
         print("" + str(card.getValue()) + " " +
               str(card.getColor()) + " -> " + str(whichCard))
         whichCard += 1
+    print()
+    print("Pass -> P")
+    print("Draw 1 Card -> D")
 
 
 def showCurrentScreen(hand, direction, lastCard, playerName):
@@ -34,7 +37,6 @@ def showLastCard(lastCard):
               " " + str(lastCard.getColor()))
     except:
         print("Last Card: - ")
-        # TODO problem skip Last-Card
 
 
 def clearScreen():

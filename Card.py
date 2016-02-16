@@ -1,4 +1,5 @@
 import random
+import CurrentScreen
 from enum import Enum
 
 CONST_START_NUMBER_OF_HANDS = 7
@@ -68,8 +69,17 @@ def shuffleDeckofCards(stack):
         stack[r1], stack[r2] = stack[r2], stack[r1]
 
 
-def drawCard(stack):
-    return(stack.pop(0))
+def drawCard(stack, thrownCards):
+    try:
+        return(stack.pop(0))
+    except:
+        stack = reshuffle(stack)
+        return drawCard(stack, thrownCards)
+
+
+def reshuffle(thrownCards):
+    return shuffleDeckofCards(thrownCards)
+    # todo hier weitermachen
 
 
 def initHand(stack):
@@ -104,21 +114,35 @@ def canBeThrown(card, lastCard):
     return False
 
 
-def playCard(hand, lastCard):
+def playCard(hand, lastCard, cardStack, hasDrawnCard, playerName, direction, thrownCards):
+    whichCard = input("Which Card you want to play: ")
+    # TODO better handling with ^c, ^d
+    #print("Invalid Input")
+    # playCard(hand)
+    # exit(0)
+    if whichCard == "d" or whichCard == "D":
+        hand.append(drawCard(cardStack, thrownCards))  # Fehler?
+        hasDrawnCard = True
+        # showScreen again
+        # TODO Stackoverflow how can i prevent 5 paramters and more
+        CurrentScreen.showCurrentScreen(hand, direction, lastCard, playerName)
+        return playCard(hand, lastCard, cardStack, hasDrawnCard, playerName, direction, thrownCards)
+    if whichCard == "p" or whichCard == "P":
+        # pass Turn
+        if(hasDrawnCard == True):
+            return lastCard
+        print("You first have to draw a card!")
+        return playCard(hand, lastCard, cardStack, hasDrawnCard, playerName, direction, thrownCards)
     try:
-        whichCard = int(input("Which Card you want to play: "))
+        if(canBeThrown(hand[int(whichCard)], lastCard)):
+            thrownCard = hand.pop(int(whichCard))
+            return thrownCard
+        else:
+            print("Can't be thrown!")
+            return playCard(hand, lastCard, cardStack, hasDrawnCard, playerName, direction, thrownCards)
     except:
-        # TODO better handling with ^c, ^d
-        #print("Invalid Input")
-        # playCard(hand)
-        exit(0)
-    print(hand[whichCard].getColor())
-    if(canBeThrown(hand[whichCard], lastCard)):
-        thrownCard = hand.pop(whichCard)
-        return thrownCard
-    else:
-        print("Can't be thrown!")
-        playCard(hand, lastCard)
+        print("Error!")
+        return playCard(hand, lastCard, cardStack, hasDrawnCard, playerName, direction, thrownCards)
 
 
 def getNames(numberOfPlayers):
@@ -126,3 +150,5 @@ def getNames(numberOfPlayers):
     for i in range(numberOfPlayers):
         names.append(input("What's the name of Player " + str(i + 1) + " "))
     return names
+
+# TODO dont draw 2 card in one round
