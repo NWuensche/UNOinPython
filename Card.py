@@ -97,7 +97,7 @@ def someoneWon(handsOfCards):
 
 
 def sameColor(card, lastCard):
-    if card.getColor() == lastCard.getColor:
+    if card.getColor() == lastCard.getColor():
         return True
     return False
 
@@ -117,9 +117,6 @@ def canBeThrown(card, lastCard):
 def playCard(hand, lastCard, cardStack, hasDrawnCard, playerName, direction, thrownCards):
     whichCard = input("Which Card you want to play: ")
     # TODO better handling with ^c, ^d
-    #print("Invalid Input")
-    # playCard(hand)
-    # exit(0)
     if whichCard == "d" or whichCard == "D":
         if hasDrawnCard == False:
             hand.append(drawCard(cardStack, thrownCards))  # Fehler?
@@ -127,7 +124,6 @@ def playCard(hand, lastCard, cardStack, hasDrawnCard, playerName, direction, thr
             CurrentScreen.showCurrentScreen(hand, direction, lastCard, playerName)
         else:
             print("You already have drawn a card!")
-        # showScreen again
         # TODO Stackoverflow how can i prevent 5 paramters and more
         return playCard(hand, lastCard, cardStack, hasDrawnCard, playerName, direction, thrownCards)
     if whichCard == "p" or whichCard == "P":
@@ -137,6 +133,8 @@ def playCard(hand, lastCard, cardStack, hasDrawnCard, playerName, direction, thr
         print("You first have to draw a card!")
         return playCard(hand, lastCard, cardStack, hasDrawnCard, playerName, direction, thrownCards)
     try:
+        print("Color"+hand[int(whichCard)].getColor()+ " Value" + hand[int(whichCard)].getValue())
+        print("Color"+lastCard.getColor()+ " Value" + lastCard.getValue())
         if(canBeThrown(hand[int(whichCard)], lastCard)):
             thrownCard = hand.pop(int(whichCard))
             return thrownCard
