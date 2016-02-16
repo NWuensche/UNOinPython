@@ -121,11 +121,14 @@ def playCard(hand, lastCard, cardStack, hasDrawnCard, playerName, direction, thr
     # playCard(hand)
     # exit(0)
     if whichCard == "d" or whichCard == "D":
-        hand.append(drawCard(cardStack, thrownCards))  # Fehler?
-        hasDrawnCard = True
+        if hasDrawnCard == False:
+            hand.append(drawCard(cardStack, thrownCards))  # Fehler?
+            hasDrawnCard = True
+            CurrentScreen.showCurrentScreen(hand, direction, lastCard, playerName)
+        else:
+            print("You already have drawn a card!")
         # showScreen again
         # TODO Stackoverflow how can i prevent 5 paramters and more
-        CurrentScreen.showCurrentScreen(hand, direction, lastCard, playerName)
         return playCard(hand, lastCard, cardStack, hasDrawnCard, playerName, direction, thrownCards)
     if whichCard == "p" or whichCard == "P":
         # pass Turn
