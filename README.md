@@ -11,7 +11,7 @@ This is a UNO Card Game, completely written in Python 3
 - throw card                                        ✓
 - show own cards                                    ✓
 - draw one card                                     ✓
-- reshuffle cards, if draw stack is empty           
+- reshuffle cards, if draw stack is empty           ✓
 - screen player's name                              ✓
 - screen in which direction the game's going        ✓
 - screen, how many cards you have to draw
