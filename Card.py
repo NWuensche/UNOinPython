@@ -26,7 +26,7 @@ class Values(Enum):
     ten = 10
     draw2 = 11
     skip = 12
-    revese = 13
+    reverse = 13
 
 
 class Card():
@@ -73,13 +73,8 @@ def drawCard(stack, thrownCards):
     try:
         return(stack.pop(0))
     except:
-        stack = reshuffle(stack)
-        return drawCard(stack, thrownCards)
-
-
-def reshuffle(thrownCards):
-    return shuffleDeckofCards(thrownCards)
-    # todo hier weitermachen
+        print("To many players!")
+        exit(0)
 
 
 def initHand(stack):
@@ -114,7 +109,7 @@ def canBeThrown(card, lastCard):
     return False
 
 
-def playCard(hand, lastCard, cardStack, hasDrawnCard, playerName, direction, thrownCards,drawCards):
+def playCard(hand, lastCard, cardStack, hasDrawnCard, playerName, direction, thrownCards, drawCards):
     whichCard = input("Which Card you want to play: ")
     # TODO better handling with ^c, ^d
     if whichCard == "d" or whichCard == "D":
@@ -123,30 +118,27 @@ def playCard(hand, lastCard, cardStack, hasDrawnCard, playerName, direction, thr
             sortHand(hand)
             hasDrawnCard = True
             CurrentScreen.showCurrentScreen(
-                hand, direction, lastCard, playerName,drawCards)
+                hand, direction, lastCard, playerName, drawCards)
         else:
             print("You already have drawn a card!")
         # TODO Stackoverflow how can i prevent 5 paramters and more
-        return playCard(hand, lastCard, cardStack, hasDrawnCard, playerName, direction, thrownCards,drawCard)
+        return playCard(hand, lastCard, cardStack, hasDrawnCard, playerName, direction, thrownCards, drawCards)
     if whichCard == "p" or whichCard == "P":
         # pass Turn
         if(hasDrawnCard == True):
             return lastCard
         print("You first have to draw a card!")
-        return playCard(hand, lastCard, cardStack, hasDrawnCard, playerName, direction, thrownCards,drawCard)
+        return playCard(hand, lastCard, cardStack, hasDrawnCard, playerName, direction, thrownCards, drawCards)
     try:
-        print("Color" + hand[int(whichCard)].getColor() +
-              " Value" + hand[int(whichCard)].getValue())
-        print("Color" + lastCard.getColor() + " Value" + lastCard.getValue())
         if(canBeThrown(hand[int(whichCard)], lastCard)):
             thrownCard = hand.pop(int(whichCard))
             return thrownCard
         else:
             print("Can't be thrown!")
-            return playCard(hand, lastCard, cardStack, hasDrawnCard, playerName, direction, thrownCards,drawCard)
+            return playCard(hand, lastCard, cardStack, hasDrawnCard, playerName, direction, thrownCards, drawCards)
     except:
         print("Error!")
-        return playCard(hand, lastCard, cardStack, hasDrawnCard, playerName, direction, thrownCards,drawCard)
+        return playCard(hand, lastCard, cardStack, hasDrawnCard, playerName, direction, thrownCards, drawCards)
 
 
 def getNames(numberOfPlayers):
@@ -163,9 +155,8 @@ def sortHand(hand):
     while runs >= 1:
         for i in range(len(hand) - 1):
             if hand[i + 1].color.value < hand[i].color.value:
-                print("Color: " + str(hand[i].color.value) + ", "+ str(hand[i+1].color.value))
                 hand[i], hand[i + 1] = hand[i + 1], hand[i]
-            elif(hand[i].color.value == hand[i+1].color.value and hand[i + 1].value.value < hand[i].value.value):
+            elif(hand[i].color.value == hand[i + 1].color.value and hand[i + 1].value.value < hand[i].value.value):
                 hand[i], hand[i + 1] = hand[i + 1], hand[i]
         runs -= 1
     return hand

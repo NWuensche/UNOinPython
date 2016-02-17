@@ -1,7 +1,9 @@
 import os
 
+
 def showToDrawnCards(drawCards):
-    print("+Cards: " +  str(drawCards)+"\t",end="")
+    print("+Cards: " + str(drawCards) + "\t", end="")
+
 
 def showDirection(direction):
     if(direction == 1):
@@ -21,7 +23,7 @@ def showHand(hand):
     print("Draw 1 Card -> D")
 
 
-def showCurrentScreen(hand, direction, lastCard, playerName,drawCards):
+def showCurrentScreen(hand, direction, lastCard, playerName, drawCards):
     clearScreen()
     showPlayerName(playerName)
     showDirection(direction)

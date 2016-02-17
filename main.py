@@ -15,11 +15,14 @@ thrownCards.append(lastCard)
 names = Card.getNames(numberOfPlayers)
 drawCards = 0
 while Card.someoneWon(handsOfCards) == False:
+
     CurrentScreen.showCurrentScreen(
-        handsOfCards[whichPlayer], direction, lastCard, names[whichPlayer],drawCards)
+        handsOfCards[whichPlayer], direction, lastCard, names[whichPlayer], drawCards)
     # objekte mit 5 objteken machen
-    lastCard = Card.playCard(handsOfCards[whichPlayer], lastCard, cardStack,
-                            False, names[whichPlayer], direction, thrownCards,drawCards)
+    lastCardTmp = Card.playCard(handsOfCards[whichPlayer], lastCard, cardStack,
+                                False, names[whichPlayer], direction, thrownCards, drawCards)
+    cardStack.append(lastCard)
+    lastCard = lastCardTmp
     if lastCard.getValue() == "draw2":
         drawCards += 2
     elif lastCard.getValue() == "reverse":
@@ -27,4 +30,4 @@ while Card.someoneWon(handsOfCards) == False:
     elif lastCard.getValue() == "skip":
         whichPlayer = (whichPlayer + 1) % numberOfPlayers
     thrownCards.append(lastCard)
-    whichPlayer = (whichPlayer + 1) % numberOfPlayers
+    whichPlayer = (whichPlayer + 1 * direction) % numberOfPlayers
