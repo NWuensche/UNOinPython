@@ -69,7 +69,7 @@ def shuffleDeckofCards(stack):
         stack[r1], stack[r2] = stack[r2], stack[r1]
 
 
-def drawCard(stack, thrownCards):
+def drawCard(stack):
     try:
         return(stack.pop(0))
     except:
@@ -109,12 +109,18 @@ def canBeThrown(card, lastCard):
     return False
 
 
-def playCard(hand, lastCard, cardStack, hasDrawnCard, playerName, direction, thrownCards, drawCards):
+def playCard(hand, lastCard, cardStack, hasDrawnCard, playerName, direction, drawCards):
     whichCard = input("Which Card you want to play: ")
     # TODO better handling with ^c, ^d
     if whichCard == "d" or whichCard == "D":
-        if hasDrawnCard == False:
-            hand.append(drawCard(cardStack, thrownCards))  # Fehler?
+        if drawCards[0] > 0:
+            for card in range(drawCards[0]):
+                hand.append(drawCard(cardStack))
+            drawCards[1] = 1
+            #TODO geht nicht
+            return lastCard
+        elif hasDrawnCard == False:
+            hand.append(drawCard(cardStack))  # Fehler?
             sortHand(hand)
             hasDrawnCard = True
             CurrentScreen.showCurrentScreen(
@@ -122,23 +128,26 @@ def playCard(hand, lastCard, cardStack, hasDrawnCard, playerName, direction, thr
         else:
             print("You already have drawn a card!")
         # TODO Stackoverflow how can i prevent 5 paramters and more
-        return playCard(hand, lastCard, cardStack, hasDrawnCard, playerName, direction, thrownCards, drawCards)
+        return playCard(hand, lastCard, cardStack, hasDrawnCard, playerName, direction, drawCards)
     if whichCard == "p" or whichCard == "P":
         # pass Turn
         if(hasDrawnCard == True):
             return lastCard
         print("You first have to draw a card!")
-        return playCard(hand, lastCard, cardStack, hasDrawnCard, playerName, direction, thrownCards, drawCards)
+        return playCard(hand, lastCard, cardStack, hasDrawnCard, playerName, direction, drawCards)
     try:
         if(canBeThrown(hand[int(whichCard)], lastCard)):
+            if(drawCards[0] > 0 and hand[int(whichCard)].getValue() != "draw2"):
+                print("draw cards or play +2 card!")
+                return playCard(hand, lastCard, cardStack, hasDrawnCard, playerName, direction, drawCards)
             thrownCard = hand.pop(int(whichCard))
             return thrownCard
         else:
             print("Can't be thrown!")
-            return playCard(hand, lastCard, cardStack, hasDrawnCard, playerName, direction, thrownCards, drawCards)
+            return playCard(hand, lastCard, cardStack, hasDrawnCard, playerName, direction, drawCards)
     except:
         print("Error!")
-        return playCard(hand, lastCard, cardStack, hasDrawnCard, playerName, direction, thrownCards, drawCards)
+        return playCard(hand, lastCard, cardStack, hasDrawnCard, playerName, direction, drawCards)
 
 
 def getNames(numberOfPlayers):

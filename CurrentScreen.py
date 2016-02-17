@@ -2,7 +2,7 @@ import os
 
 
 def showToDrawnCards(drawCards):
-    print("+Cards: " + str(drawCards) + "\t", end="")
+    print("+Cards: " + str(drawCards[0]) + "\t", end="")
 
 
 def showDirection(direction):
@@ -16,7 +16,7 @@ def showHand(hand):
     whichCard = 0
     for card in hand:
         print("" + str(card.getValue()) + " " +
-              str(card.getColor()) + " -> " + str(whichCard))
+              str(card.getColor()) + " \t->\t " + str(whichCard))
         whichCard += 1
     print()
     print("Pass -> P")
