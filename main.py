@@ -16,10 +16,10 @@ names = Card.getNames(numberOfPlayers)
 drawCards = 0
 while Card.someoneWon(handsOfCards) == False:
     CurrentScreen.showCurrentScreen(
-        handsOfCards[whichPlayer], direction, lastCard, names[whichPlayer])
+        handsOfCards[whichPlayer], direction, lastCard, names[whichPlayer],drawCards)
     # objekte mit 5 objteken machen
     lastCard = Card.playCard(handsOfCards[whichPlayer], lastCard, cardStack,
-                            False, names[whichPlayer], direction, thrownCards)
+                            False, names[whichPlayer], direction, thrownCards,drawCards)
     if lastCard.getValue() == "draw2":
         drawCards += 2
     elif lastCard.getValue() == "reverse":
