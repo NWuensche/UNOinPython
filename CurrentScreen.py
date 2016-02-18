@@ -1,4 +1,5 @@
 import os
+from EnumsCards import *
 
 
 def showToDrawnCards(drawCards):
@@ -9,14 +10,14 @@ def showDirection(direction):
     if(direction == 1):
         print("Direction: Clockwise\t", end="")
     else:
-        print("Direction Counter-Clockwise\t", end="")
+        print("Direction C-Clockwise\t", end="")
 
 
 def showHand(hand):
     whichCard = 0
     for card in hand:
         print("" + str(card.getValue()) + " " +
-              str(card.getColor()) + " \t->\t " + str(whichCard))
+              str(card.getColor()) + " \t\t\t->\t " + str(whichCard))
         whichCard += 1
     print()
     print("Pass -> P")
@@ -46,20 +47,20 @@ def clearScreen():
 
 def showChooseColorScreen(startMessage):
     clearScreen()
-    showChooseColorScreen(startMessage)
+    print(startMessage)
     print("Choose a new color:")
     print("blue\t->\tb")
     print("red\t->\tr")
     print("yellow\t->\ty")
     print("green\t->\tg")
-    newColor = lower(input())
+    newColor = input().lower()
     if(newColor == "b" ):
-        return "blue" #TODO übergibt Zahlen, damit ich enum drauß machen ann
-    elif(newColor == "y" ):
-        return "yellow"
+        return 0 #TODO übergibt Zahlen, damit ich enum drauß machen ann
     elif(newColor == "r" ):
-        return "red"
+        return 1
+    elif(newColor == "y" ):
+        return 2
     elif(newColor == "g" ):
-        return "green"
+        return 3
     else:
-        return startMessage("Not a color!")
+        return showChooseColorScreen("Not a color!")

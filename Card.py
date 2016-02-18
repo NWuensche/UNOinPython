@@ -1,36 +1,9 @@
 import random
 import CurrentScreen
-from enum import Enum
-
+from EnumsCards import *
 CONST_START_NUMBER_OF_HANDS = 7
 
 
-class Colors(Enum):
-    blue = 0
-    red = 1
-    yellow = 2
-    green = 3
-    wild = 5
-
-
-
-class Values(Enum):
-    zero = 0
-    one = 1
-    two = 2
-    three = 3
-    four = 4
-    five = 5
-    six = 6
-    seven = 7
-    eight = 8
-    nine = 9
-    ten = 10
-    draw2 = 11
-    skip = 12
-    reverse = 13
-    draw4 = 14
-    chooseColor = 15
 
 
 class Card():
@@ -154,8 +127,8 @@ def playCard(hand, lastCard, cardStack, hasDrawnCard, playerName, direction, dra
         return playCard(hand, lastCard, cardStack, hasDrawnCard, playerName, direction, drawCards)
     try:
         if(canBeThrown(hand[int(whichCard)], lastCard)):
-            if(drawCards[0] > 0 and (hand[int(whichCard)].getValue() != "draw2" or hand[int(whichCard)].getValue != "draw4")):
-                print("draw cards or play +2 card!")
+            if(drawCards[0] > 0 and (hand[int(whichCard)].getValue() != "draw2" and hand[int(whichCard)].getValue != "draw4")):
+                print("draw cards or play +x card!")
                 return playCard(hand, lastCard, cardStack, hasDrawnCard, playerName, direction, drawCards)
             thrownCard = hand.pop(int(whichCard))
             return thrownCard
