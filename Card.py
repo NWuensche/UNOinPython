@@ -143,7 +143,15 @@ def playCard(hand, lastCard, cardStack, hasDrawnCard, playerName, direction, dra
 def getNames(numberOfPlayers):
     names = []
     for i in range(numberOfPlayers):
-        names.append(input("What's the name of Player " + str(i + 1) + " "))
+        inList = True
+        #todo hier weiter, damit namen alle unique
+        while inList:
+            name = input("What's the name of Player " + str(i + 1) + " ")
+            if name not in names:
+                inList = False
+            if name in names:
+                print("Name already in use")
+        names.append(name)
     return names
 
 # TODO dont draw 2 card in one round

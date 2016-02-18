@@ -21,7 +21,7 @@ def showHand(hand):
         whichCard += 1
     print()
     print("Pass -> P")
-    print("Draw 1 Card -> D")
+    print("Draw Card(s) -> D")
 
 
 def showCurrentScreen(hand, direction, lastCard, playerName, drawCards):

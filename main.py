@@ -26,24 +26,23 @@ while Card.someoneWon(handsOfCards) == False:
     lastCardTmp = Card.playCard(handsOfCards[whichPlayer], lastCard, cardStack,
                                 False, names[whichPlayer], direction, drawCards)
     # objekte mit 5 objteken machen
-    # nicht karte, sondern farbe und wert übergeben
+    # listindex out of range bei 5 spielern?
     if(lastCard.backInDeck == 0):
         cardStack.append(lastCard)
         lastCard.backInDeck = 1
     Card.shuffleDeckofCards(cardStack)
     lastCard = lastCardTmp
-    # TODO 20 mal gleiche Karte auf Stack, wenn nur pass?
     if lastCard.getValue() == "draw2":
-        drawCards[0] += 2
-        if(drawCards[1] == 1):
-            drawCards[0] = 0
-    # TODO Clockwise, counter-clockwise kürzer
-    # wenn einmal draw2, und dann später irgendwann noch einmal draw2, dann
-    # keine neuen Karten werden gezigen
+        if lastCard.backInDeck ==  1:
+            drawCards[0]=0
+        else:
+            drawCards[0] += 2
+        #todo drawCards[1] weg
     elif lastCard.getValue() == "draw4" :
-        drawCards[0] += 4
-        if(drawCards[1] == 1):
-            drawCards[0] = 0
+        if lastCard.backInDeck ==  1:
+            drawCards[0]=0
+        else:
+            drawCards[0] += 2
         if(lastCard.getColor() == "wild"):
             otherColor = CurrentScreen.showChooseColorScreen("")
     elif lastCard.getValue() == "chooseColor" and lastCard.getColor() == "wild":
