@@ -22,6 +22,8 @@ def showHand(hand):
     print()
     print("Pass -> P")
     print("Draw Card(s) -> D")
+    if(len(hand)==2):
+        print("UNO! -> U")
 
 
 def showCurrentScreen(hand, direction, lastCard, playerName, drawCards):

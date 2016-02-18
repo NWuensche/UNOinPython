@@ -24,7 +24,7 @@ while Card.someoneWon(handsOfCards) == False:
     CurrentScreen.showCurrentScreen(
         handsOfCards[whichPlayer], direction, lastCard, names[whichPlayer], drawCards)
     lastCardTmp = Card.playCard(handsOfCards[whichPlayer], lastCard, cardStack,
-                                False, names[whichPlayer], direction, drawCards)
+                                False, names[whichPlayer], direction, drawCards,False)
     # objekte mit 5 objteken machen
     # listindex out of range bei 5 spielern?
     if(lastCard.backInDeck == 0):

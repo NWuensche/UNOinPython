@@ -1,7 +1,7 @@
 import random
 import CurrentScreen
 from EnumsCards import *
-CONST_START_NUMBER_OF_HANDS = 7
+CONST_START_NUMBER_OF_HANDS = 2
 
 
 
@@ -99,7 +99,7 @@ def canBeThrown(card, lastCard):
     return False
 
 
-def playCard(hand, lastCard, cardStack, hasDrawnCard, playerName, direction, drawCards):
+def playCard(hand, lastCard, cardStack, hasDrawnCard, playerName, direction, drawCards,saidUNO):
     whichCard = input("Which Card you want to play: ")
     # TODO better handling with ^c, ^d
     if whichCard == "d" or whichCard == "D":
@@ -118,26 +118,33 @@ def playCard(hand, lastCard, cardStack, hasDrawnCard, playerName, direction, dra
         else:
             print("You already have drawn a card!")
         # TODO Stackoverflow how can i prevent 5 paramters and more
-        return playCard(hand, lastCard, cardStack, hasDrawnCard, playerName, direction, drawCards)
+        return playCard(hand, lastCard, cardStack, hasDrawnCard, playerName, direction, drawCards,saidUNO)
     if whichCard == "p" or whichCard == "P":
         # pass Turn
         if(hasDrawnCard == True):
             return lastCard
         print("You first have to draw a card!")
-        return playCard(hand, lastCard, cardStack, hasDrawnCard, playerName, direction, drawCards)
+        return playCard(hand, lastCard, cardStack, hasDrawnCard, playerName, direction, drawCards,saidUNO)
+    if whichCard == "u" or whichCard == "U":
+        saidUNO = True
+        return playCard(hand, lastCard, cardStack, hasDrawnCard, playerName, direction, drawCards,saidUNO)
     try:
         if(canBeThrown(hand[int(whichCard)], lastCard)):
             if(drawCards[0] > 0 and (hand[int(whichCard)].getValue() != "draw2" and hand[int(whichCard)].getValue != "draw4")):
                 print("draw cards or play +x card!")
-                return playCard(hand, lastCard, cardStack, hasDrawnCard, playerName, direction, drawCards)
+                return playCard(hand, lastCard, cardStack, hasDrawnCard, playerName, direction, drawCards,saidUNO)
             thrownCard = hand.pop(int(whichCard))
+            if(len(hand) == 1 and saidUNO == False):
+                print("You forgot to say UNO! Now you have to draw 1 card!")
+                hand.append(drawCard(cardStack))
+                input("Press any key!")
             return thrownCard
         else:
             print("Can't be thrown!")
-            return playCard(hand, lastCard, cardStack, hasDrawnCard, playerName, direction, drawCards)
+            return playCard(hand, lastCard, cardStack, hasDrawnCard, playerName, direction, drawCards,saidUNO)
     except:
         print("Error!")
-        return playCard(hand, lastCard, cardStack, hasDrawnCard, playerName, direction, drawCards)
+        return playCard(hand, lastCard, cardStack, hasDrawnCard, playerName, direction, drawCards,saidUNO)
 
 
 def getNames(numberOfPlayers):
