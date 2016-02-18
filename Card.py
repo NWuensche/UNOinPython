@@ -5,7 +5,8 @@ from enum import Enum
 CONST_START_NUMBER_OF_HANDS = 7
 
 
-class Colors(Enum):
+class Colors(Enum)
+:
     blue = 0
     red = 1
     yellow = 2
@@ -169,3 +170,5 @@ def sortHand(hand):
                 hand[i], hand[i + 1] = hand[i + 1], hand[i]
         runs -= 1
     return hand
+
+#TODO andere Namen Karten

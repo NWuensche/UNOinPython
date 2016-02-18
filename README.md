@@ -14,12 +14,12 @@ This is a UNO Card Game, completely written in Python 3
 - reshuffle cards, if draw stack is empty           ✓
 - screen player's name                              ✓
 - screen in which direction the game's going        ✓
-- screen, how many cards you have to draw
+- screen, how many cards you have to draw           ✓
 - scream UNO and get a punishment, if you don't
 - How to implement cards without color?
 - How to look, if thrown card is valid?             ✓
 - What to do, if you have to pass?                  ✓
 - play to 100 Points
 - create (good) KI
-- sort Hand                                         
-- don't draw 2 cards
+- sort Hand                                         ✓
+- don't draw 2 cards                                ✓
