@@ -37,11 +37,8 @@ def showPlayerName(playerName):
 
 
 def showLastCard(lastCard):
-    try:
-        print("Last Card: " + str(lastCard.getValue()) +
-              " " + str(lastCard.getColor()))
-    except:
-        print("Last Card: - ")
+    print("Last Card: " + str(lastCard.getValue()) +
+      " " + str(lastCard.getColor()))
 
 
 def clearScreen():
@@ -56,7 +53,13 @@ def showChooseColorScreen(startMessage):
     print("yellow\t->\ty")
     print("green\t->\tg")
     newColor = lower(input())
-    if(newColor == "b" or newColor == "r" or newColor == "y" or newColor == "g"):
-        return newColor()
+    if(newColor == "b" ):
+        return "blue" #TODO übergibt Zahlen, damit ich enum drauß machen ann
+    elif(newColor == "y" ):
+        return "yellow"
+    elif(newColor == "r" ):
+        return "red"
+    elif(newColor == "g" ):
+        return "green"
     else:
         return startMessage("Not a color!")

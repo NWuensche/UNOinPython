@@ -38,6 +38,7 @@ class Card():
     def __init__(self, color, value):
         self.color = color
         self.value = value
+        self.backInDeck = 0
 
     def getColor(self):
         return self.color.name
@@ -85,9 +86,11 @@ def shuffleDeckofCards(stack):
 
 def drawCard(stack):
     try:
-        return(stack.pop(0))
+        nextCard = stack.pop(0)
+        nextCard.backInDeck = 0
+        return(nextCard)
     except:
-        print("To many players!")
+        print("Too many players!")
         exit(0)
 
 
