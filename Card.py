@@ -5,12 +5,13 @@ from enum import Enum
 CONST_START_NUMBER_OF_HANDS = 7
 
 
-class Colors(Enum)
-:
+class Colors(Enum):
     blue = 0
     red = 1
     yellow = 2
     green = 3
+    wild = 5
+
 
 
 class Values(Enum):
@@ -28,6 +29,8 @@ class Values(Enum):
     draw2 = 11
     skip = 12
     reverse = 13
+    draw4 = 14
+    chooseColor = 15
 
 
 class Card():
@@ -42,6 +45,8 @@ class Card():
     def getValue(self):
         return self.value.name
 
+    def setColor(self,color):
+        self.color = color
 
 def createColorStack(color):
     colorStack = []
@@ -50,9 +55,17 @@ def createColorStack(color):
         for value in Values:
             if(value.value == 0):
                 colorStack.append(Card(color, value))
+            elif value.value > 13:
+                pass
             else:
                 colorStack.append(Card(color, value))
                 colorStack.append(Card(color, value))
+    else:
+        for value in Values:
+            if value.value >13:
+                colorStack.append(Card(color,value))
+                colorStack.append(Card(color,value))
+
     return colorStack
 
 
@@ -105,7 +118,7 @@ def sameValue(card, lastCard):
 
 
 def canBeThrown(card, lastCard):
-    if(sameColor(card, lastCard) or sameValue(card, lastCard)):
+    if(sameColor(card, lastCard) or sameValue(card, lastCard)or card.getColor() == "wild"):
         return True
     return False
 
@@ -138,7 +151,7 @@ def playCard(hand, lastCard, cardStack, hasDrawnCard, playerName, direction, dra
         return playCard(hand, lastCard, cardStack, hasDrawnCard, playerName, direction, drawCards)
     try:
         if(canBeThrown(hand[int(whichCard)], lastCard)):
-            if(drawCards[0] > 0 and hand[int(whichCard)].getValue() != "draw2"):
+            if(drawCards[0] > 0 and (hand[int(whichCard)].getValue() != "draw2" or hand[int(whichCard)].getValue != "draw4")):
                 print("draw cards or play +2 card!")
                 return playCard(hand, lastCard, cardStack, hasDrawnCard, playerName, direction, drawCards)
             thrownCard = hand.pop(int(whichCard))
@@ -170,5 +183,6 @@ def sortHand(hand):
                 hand[i], hand[i + 1] = hand[i + 1], hand[i]
         runs -= 1
     return hand
+
 
 #TODO andere Namen Karten

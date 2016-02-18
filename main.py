@@ -21,12 +21,20 @@ while Card.someoneWon(handsOfCards) == False:
     # objekte mit 5 objteken machen
     lastCardTmp = Card.playCard(handsOfCards[whichPlayer], lastCard, cardStack,
                                 False, names[whichPlayer], direction, drawCards)
+    #nicht karte, sondern farbe und wert übergeben
     cardStack.append(lastCard)
+    Card.shuffleDeckofCards(cardStack)
     lastCard = lastCardTmp
     if lastCard.getValue() == "draw2":
         drawCards[0] += 2
         if(drawCards[1] == 1):
             drawCards[0] = 0
+    elif lastCard.getValue() == "draw4":
+        drawCards[0] += 4
+        if(drawCards[1] == 1):
+            drawCards[0] = 0
+        CurrentScreen.showChooseColorScreen()
+
     elif lastCard.getValue() == "reverse":
         direction *= -1
         drawCards[1] = 0

@@ -23,3 +23,4 @@ This is a UNO Card Game, completely written in Python 3
 - create (good) KI
 - sort Hand                                         ✓
 - don't draw 2 cards                                ✓
+- change color with card

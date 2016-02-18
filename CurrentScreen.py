@@ -46,3 +46,17 @@ def showLastCard(lastCard):
 
 def clearScreen():
     os.system("cls" if os.name == "nt" else "clear")
+
+def showChooseColorScreen(startMessage):
+    clearScreen()
+    showChooseColorScreen(startMessage)
+    print("Choose a new color:")
+    print("blue\t->\tb")
+    print("red\t->\tr")
+    print("yellow\t->\ty")
+    print("green\t->\tg")
+    newColor = lower(input())
+    if(newColor == "b" or newColor == "r" or newColor == "y" or newColor == "g"):
+        return newColor()
+    else:
+        return startMessage("Not a color!")
