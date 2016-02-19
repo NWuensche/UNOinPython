@@ -2,18 +2,24 @@ import Card
 import CurrentScreen
 import EnumsCards
 
-numberOfPlayers = int(input("How many players? "))
+#0: Player, 1: KI
+numberOf = []
+numberOf.append(int(input("How many players? ")))
+numberOf.append(int(input("How many computers? ")))
 # direction 1: clockwise, -1: counter-clockwise
-pointsOfPlayers = Card.initPointsOfPlayers(numberOfPlayers)
+pointsOfPlayers = Card.initPointsOfPlayers(numberOf[0]+numberOf[1])
 # drawCards[1] 0=> + Cards not drawn, 1=> are drawn
 drawCards = [0, 0]
-names = Card.getNames(numberOfPlayers)
+names = Card.getNames(numberOf[0])
+names.extend(Card.getKINames(numberOf[1]))
 # TODO show right person, that won one round
 while(Card.someHasEnoughtPoints(pointsOfPlayers)==-1):
     cardStack = Card.initStackOfCards()
     Card.shuffleDeckofCards(cardStack)
-    handsOfCards = [Card.initHand(cardStack), Card.initHand(
-        cardStack), Card.initHand(cardStack), Card.initHand(cardStack)]
+    handsOfCards = []
+    for player in range((numberOf[0]+numberOf[1])):
+        handsOfCards.append(Card.initHand(cardStack))
+    #TODO Wenn erste Karte + 2, dann zwar Farbe wechseln, aber nur +2
     direction = 1
     otherColor = -1
     lastCard = Card.drawCard(cardStack)
@@ -37,7 +43,7 @@ while(Card.someHasEnoughtPoints(pointsOfPlayers)==-1):
         direction *= -1
         drawCards[1] = 0
     elif lastCard.getValue() == "skip":
-        whichPlayer = (whichPlayer + 1*direction) % numberOfPlayers
+        whichPlayer = (whichPlayer + 1*direction) % (numberOf[0]+numberOf[1])
         drawCards[1] = 0
     else:
         drawCards[1] = 0
@@ -76,18 +82,18 @@ while(Card.someHasEnoughtPoints(pointsOfPlayers)==-1):
             direction *= -1
             drawCards[1] = 0
         elif lastCard.getValue() == "skip":
-            whichPlayer = (whichPlayer + 1*direction) % numberOfPlayers
+            whichPlayer = (whichPlayer + 1*direction) % (numberOf[0]+numberOf[1])
             drawCards[1] = 0
         else:
             drawCards[1] = 0
-        whichPlayer = (whichPlayer + 1 * direction) % numberOfPlayers
-    winningPerson =  (whichPlayer+1*direction*-1)%numberOfPlayers
+        whichPlayer = (whichPlayer + 1 * direction) % (numberOf[0]+numberOf[1])
+    winningPerson =  (whichPlayer+1*direction*-1)%(numberOf[0]+numberOf[1])
     print("Congratulations to "+names[winningPerson]+" for winning this round!")
     Card.givePersonPoints(handsOfCards,winningPerson,pointsOfPlayers)
     CurrentScreen.showPointsOfPlayers(pointsOfPlayers,names)
     input("Press any key to continue")
 
-print("Congratulations to "+names[(whichPlayer-1*direction*-1)%numberOfPlayers]+" for winning the game!")
+print("Congratulations to "+names[(whichPlayer-1*direction*-1)%(numberOf[0]+numberOf[1])]+" for winning the game!")
 
 # TODO look, if first shown card is special card
 # TODO Unterschiedlihce Namen pfilicht
