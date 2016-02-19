@@ -1,7 +1,7 @@
 import random
 import CurrentScreen
 from EnumsCards import *
-CONST_START_NUMBER_OF_HANDS = 1
+CONST_START_NUMBER_OF_HANDS = 7
 
 
 
