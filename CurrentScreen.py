@@ -66,3 +66,9 @@ def showChooseColorScreen(startMessage):
         return 3
     else:
         return showChooseColorScreen("Not a color!")
+
+def showPointsOfPlayers(pointsOfPlayers,names):
+    i = 0
+    for points in pointsOfPlayers:
+        print("Points of "+ names[i]+": "+str(pointsOfPlayers[i]))
+        i+=1

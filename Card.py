@@ -1,7 +1,7 @@
 import random
 import CurrentScreen
 from EnumsCards import *
-CONST_START_NUMBER_OF_HANDS = 2
+CONST_START_NUMBER_OF_HANDS = 1
 
 
 
@@ -139,6 +139,8 @@ def playCard(hand, lastCard, cardStack, hasDrawnCard, playerName, direction, dra
                 hand.append(drawCard(cardStack))
                 input("Press any key!")
             return thrownCard
+            # wenn karte geschmissen, aber nicht uno gesagt, dann wird geworfene Karte nicht angezeigt
+            # wenn geworfene Karte dann noch special ist, wird nicht aktion ausgeführt
         else:
             print("Can't be thrown!")
             return playCard(hand, lastCard, cardStack, hasDrawnCard, playerName, direction, drawCards,saidUNO)
@@ -177,3 +179,24 @@ def sortHand(hand):
 
 
 #TODO andere Namen Karten
+
+def someHasEnoughtPoints(allPoints):
+    i = 0
+    for points in  allPoints:
+        if(points > 100):
+            return i
+        i+=1
+    return -1
+
+def initPointsOfPlayers(numberOfPlayers):
+    points = []
+    for i in range(numberOfPlayers):
+        points.append(0)
+    return points
+
+def givePersonPoints(hands,winningPerson,pointsOfPlayers):
+    points = 0
+    for hand in hands:
+        for card in hand:
+            points+=card.value.value
+    pointsOfPlayers[winningPerson]+=points
