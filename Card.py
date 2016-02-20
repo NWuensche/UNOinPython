@@ -101,7 +101,7 @@ def canBeThrown(card, lastCard):
 
 def playCard(hand, lastCard, cardStack, hasDrawnCard, playerName, direction, drawCards,saidUNO):
     if "KI" in playerName:
-        playCardKI(hand, lastCard, cardStack, hasDrawnCard, playerName, direction, drawCards,saidUNO)
+        return playCardKI(hand, lastCard, cardStack, hasDrawnCard, playerName, direction, drawCards,saidUNO)
     # TODO better handling with ^c, ^d
     else:
         whichCard = input("Which Card you want to play: ")
@@ -110,6 +110,7 @@ def playCard(hand, lastCard, cardStack, hasDrawnCard, playerName, direction, dra
                 for card in range(drawCards[0]):
                     hand.append(drawCard(cardStack))
                 drawCards[1] = 1
+                sortHand(hand)
                 #TODO geht nicht
                 return lastCard
             elif hasDrawnCard == False:
@@ -212,4 +213,20 @@ def getKINames(numberOfKI):
     return names
 
 def playCardKI(hand, lastCard, cardStack, hasDrawnCard, playerName, direction, drawCards,saidUNO):
-    pass
+    if(drawCards[0]>0):
+        for i in range(len(hand)):
+            if hand[i].getValue() == "draw2" or hand[i].getValue() == "draw4":
+                return hand.pop(i)
+        for i in range(drawCards[0]):
+            hand.append(drawCard(cardStack))
+        return lastCard
+    for i in range(len(hand)):
+        if(canBeThrown(hand[i],lastCard)):
+            return hand.pop(i)
+    hand.append(drawCard(cardStack))
+    sortHand(hand)
+    # TODO Colormode machen
+    for i in range(len(hand)):
+        if(canBeThrown(hand[i],lastCard)):
+            return hand.pop(i)
+    return lastCard
