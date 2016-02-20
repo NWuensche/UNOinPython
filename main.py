@@ -4,6 +4,7 @@ import EnumsCards
 
 #0: Player, 1: KI
 numberOf = []
+startPlayer = 0
 numberOf.append(int(input("How many players? ")))
 numberOf.append(int(input("How many computers? ")))
 # direction 1: clockwise, -1: counter-clockwise
@@ -23,7 +24,8 @@ while(Card.someHasEnoughtPoints(pointsOfPlayers)==-1):
     direction = 1
     otherColor = -1
     lastCard = Card.drawCard(cardStack)
-    whichPlayer = 0
+    whichPlayer = startPlayer
+    startPlayer+=1
     if lastCard.getValue() == "draw2":
         if lastCard.backInDeck ==  1:
             drawCards[0]=0
@@ -55,10 +57,10 @@ while(Card.someHasEnoughtPoints(pointsOfPlayers)==-1):
             otherColor = bestColor
         else:
             otherColor = CurrentScreen.showChooseColorScreen("")
-    elif lastCard.getValue() == "reverse":
+    elif lastCard.getValue() == "reverse" and lastCard.backInDeck == 0:
         direction *= -1
         drawCards[1] = 0
-    elif lastCard.getValue() == "skip":
+    elif lastCard.getValue() == "skip" and lastCard.backInDeck == 0:
         whichPlayer = (whichPlayer + 1*direction) % (numberOf[0]+numberOf[1])
         drawCards[1] = 0
     else:
@@ -110,10 +112,10 @@ while(Card.someHasEnoughtPoints(pointsOfPlayers)==-1):
                     otherColor = bestColor
             else:
                 otherColor = CurrentScreen.showChooseColorScreen("")
-        elif lastCard.getValue() == "reverse":
+        elif lastCard.getValue() == "reverse" and lastCard.backInDeck == 0:
             direction *= -1
             drawCards[1] = 0
-        elif lastCard.getValue() == "skip":
+        elif lastCard.getValue() == "skip" and lastCard.backInDeck == 0:
             whichPlayer = (whichPlayer + 1*direction) % (numberOf[0]+numberOf[1])
             drawCards[1] = 0
         else:
