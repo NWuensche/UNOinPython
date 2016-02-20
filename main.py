@@ -46,7 +46,7 @@ while(Card.someHasEnoughtPoints(pointsOfPlayers)==-1):
                 bestColor = colorCardsInHand.index(max(colorCardsInHand))
                 otherColor = bestColor
             else:
-                otherColor = CurrentScreen.showChooseColorScreen("")
+                otherColor = CurrentScreen.showChooseColorScreen("",handsOfCards[whichPlayer], direction, lastCard, names[whichPlayer], drawCards)
     elif lastCard.getValue() == "chooseColor" and lastCard.getColor() == "wild":
         if "KI" in names[whichPlayer]:
             colorCardsInHand = [0,0,0,0]
@@ -56,7 +56,7 @@ while(Card.someHasEnoughtPoints(pointsOfPlayers)==-1):
             bestColor = colorCardsInHand.index(max(colorCardsInHand))
             otherColor = bestColor
         else:
-            otherColor = CurrentScreen.showChooseColorScreen("")
+            otherColor = CurrentScreen.showChooseColorScreen("",handsOfCards[whichPlayer], direction, lastCard, names[whichPlayer], drawCards)
     elif lastCard.getValue() == "reverse" and lastCard.backInDeck == 0:
         direction *= -1
         drawCards[1] = 0
@@ -101,7 +101,7 @@ while(Card.someHasEnoughtPoints(pointsOfPlayers)==-1):
                             bestColor = colorCardsInHand.index(max(colorCardsInHand))
                             otherColor = bestColor
                     else:
-                        otherColor = CurrentScreen.showChooseColorScreen("")
+                        otherColor = CurrentScreen.showChooseColorScreen("",handsOfCards[whichPlayer], direction, lastCard, names[whichPlayer], drawCards)
         elif lastCard.getValue() == "chooseColor" and lastCard.getColor() == "wild":
             if "KI" in names[whichPlayer]:
                 colorCardsInHand = [0,0,0,0]
@@ -111,7 +111,7 @@ while(Card.someHasEnoughtPoints(pointsOfPlayers)==-1):
                     bestColor = colorCardsInHand.index(max(colorCardsInHand))
                     otherColor = bestColor
             else:
-                otherColor = CurrentScreen.showChooseColorScreen("")
+                otherColor = CurrentScreen.showChooseColorScreen("",handsOfCards[whichPlayer], direction, lastCard, names[whichPlayer], drawCards)
         elif lastCard.getValue() == "reverse" and lastCard.backInDeck == 0:
             direction *= -1
             drawCards[1] = 0

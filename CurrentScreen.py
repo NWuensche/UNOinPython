@@ -19,6 +19,8 @@ def showHand(hand):
         print("" + str(card.getValue()) + " " +
               str(card.getColor()) + " \t\t\t->\t " + str(whichCard))
         whichCard += 1
+
+def showOptions(hand):
     print()
     print("Pass -> P")
     print("Draw Card(s) -> D")
@@ -33,6 +35,7 @@ def showCurrentScreen(hand, direction, lastCard, playerName, drawCards):
     showToDrawnCards(drawCards)
     showLastCard(lastCard)
     showHand(hand)
+    showOptions(hand)
 
 
 def showPlayerName(playerName):
@@ -47,8 +50,13 @@ def showLastCard(lastCard):
 def clearScreen():
     os.system("cls" if os.name == "nt" else "clear")
 
-def showChooseColorScreen(startMessage):
+def showChooseColorScreen(startMessage,hand,direction,lastCard,playerName,drawCards):
     clearScreen()
+    showPlayerName(playerName)
+    showDirection(direction)
+    showToDrawnCards(drawCards)
+    showLastCard(lastCard)
+    showHand(hand)
     print(startMessage)
     print("Choose a new color:")
     print("blue\t->\tb")
@@ -57,7 +65,7 @@ def showChooseColorScreen(startMessage):
     print("green\t->\tg")
     newColor = input().lower()
     if(newColor == "b" ):
-        return 0 #TODO übergibt Zahlen, damit ich enum drauß machen ann
+        return 0 
     elif(newColor == "r" ):
         return 1
     elif(newColor == "y" ):
