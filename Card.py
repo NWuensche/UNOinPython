@@ -103,6 +103,7 @@ def playCard(hand, lastCard, cardStack, hasDrawnCard, playerName, direction, dra
     if "KI" in playerName:
         return playCardKI(hand, lastCard, cardStack, hasDrawnCard, playerName, direction, drawCards,saidUNO)
     # TODO better handling with ^c, ^d
+    #Color choose with ki geht per modus?
     else:
         whichCard = input("Which Card you want to play: ")
         if whichCard == "d" or whichCard == "D":

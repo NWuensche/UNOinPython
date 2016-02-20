@@ -34,7 +34,7 @@ while(Card.someHasEnoughtPoints(pointsOfPlayers)==-1):
         if lastCard.backInDeck ==  1:
             drawCards[0]=0
         else:
-            drawCards[0] += 2
+            drawCards[0] += 4
         if(lastCard.getColor() == "wild"):
             if "KI" in names[whichPlayer]:
                 colorCardsInHand = [0,0,0,0]
@@ -89,11 +89,27 @@ while(Card.someHasEnoughtPoints(pointsOfPlayers)==-1):
             if lastCard.backInDeck ==  1:
                 drawCards[0]=0
             else:
-                drawCards[0] += 2
-            if(lastCard.getColor() == "wild"):
-                otherColor = CurrentScreen.showChooseColorScreen("")
+                drawCards[0] += 4
+                if(lastCard.getColor() == "wild"):
+                    if "KI" in names[whichPlayer]:
+                        colorCardsInHand = [0,0,0,0]
+                        for card in handsOfCards[whichPlayer]:
+                            if(card.color.value<=4):
+                                colorCardsInHand[card.color.value] += 1
+                            bestColor = colorCardsInHand.index(max(colorCardsInHand))
+                            otherColor = bestColor
+                    else:
+                        otherColor = CurrentScreen.showChooseColorScreen("")
         elif lastCard.getValue() == "chooseColor" and lastCard.getColor() == "wild":
-            otherColor = CurrentScreen.showChooseColorScreen("")
+            if "KI" in names[whichPlayer]:
+                colorCardsInHand = [0,0,0,0]
+                for card in handsOfCards[whichPlayer]:
+                    if(card.color.value<=4):
+                        colorCardsInHand[card.color.value] += 1
+                    bestColor = colorCardsInHand.index(max(colorCardsInHand))
+                    otherColor = bestColor
+            else:
+                otherColor = CurrentScreen.showChooseColorScreen("")
         elif lastCard.getValue() == "reverse":
             direction *= -1
             drawCards[1] = 0
