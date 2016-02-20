@@ -20,11 +20,12 @@ def showHand(hand):
               str(card.getColor()) + " \t\t\t->\t " + str(whichCard))
         whichCard += 1
 
+
 def showOptions(hand):
     print()
     print("Pass -> P")
     print("Draw Card(s) -> D")
-    if(len(hand)==2):
+    if(len(hand) == 2):
         print("UNO! -> U")
 
 
@@ -44,13 +45,14 @@ def showPlayerName(playerName):
 
 def showLastCard(lastCard):
     print("Last Card: " + str(lastCard.getValue()) +
-      " " + str(lastCard.getColor()))
+          " " + str(lastCard.getColor()))
 
 
 def clearScreen():
     os.system("cls" if os.name == "nt" else "clear")
 
-def showChooseColorScreen(startMessage,hand,direction,lastCard,playerName,drawCards):
+
+def showChooseColorScreen(startMessage, hand, direction, lastCard, playerName, drawCards):
     clearScreen()
     showPlayerName(playerName)
     showDirection(direction)
@@ -64,19 +66,20 @@ def showChooseColorScreen(startMessage,hand,direction,lastCard,playerName,drawCa
     print("yellow\t->\ty")
     print("green\t->\tg")
     newColor = input().lower()
-    if(newColor == "b" ):
-        return 0 
-    elif(newColor == "r" ):
+    if(newColor == "b"):
+        return 0
+    elif(newColor == "r"):
         return 1
-    elif(newColor == "y" ):
+    elif(newColor == "y"):
         return 2
-    elif(newColor == "g" ):
+    elif(newColor == "g"):
         return 3
     else:
         return showChooseColorScreen("Not a color!")
 
-def showPointsOfPlayers(pointsOfPlayers,names):
+
+def showPointsOfPlayers(pointsOfPlayers, names):
     i = 0
     for points in pointsOfPlayers:
-        print("Points of "+ names[i]+": "+str(pointsOfPlayers[i]))
-        i+=1
+        print("Points of " + names[i] + ": " + str(pointsOfPlayers[i]))
+        i += 1

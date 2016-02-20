@@ -9,7 +9,6 @@ class Colors(Enum):
     wild = 4
 
 
-
 class Values(Enum):
     zero = 0
     one = 1

@@ -4,8 +4,6 @@ from EnumsCards import *
 CONST_START_NUMBER_OF_HANDS = 7
 
 
-
-
 class Card():
 
     def __init__(self, color, value):
@@ -19,8 +17,9 @@ class Card():
     def getValue(self):
         return self.value.name
 
-    def setColor(self,color):
+    def setColor(self, color):
         self.color = color
+
 
 def createColorStack(color):
     colorStack = []
@@ -36,9 +35,9 @@ def createColorStack(color):
                 colorStack.append(Card(color, value))
     else:
         for value in Values:
-            if value.value >13:
-                colorStack.append(Card(color,value))
-                colorStack.append(Card(color,value))
+            if value.value > 13:
+                colorStack.append(Card(color, value))
+                colorStack.append(Card(color, value))
 
     return colorStack
 
@@ -99,11 +98,9 @@ def canBeThrown(card, lastCard):
     return False
 
 
-def playCard(hand, lastCard, cardStack, hasDrawnCard, playerName, direction, drawCards,saidUNO):
+def playCard(hand, lastCard, cardStack, hasDrawnCard, playerName, direction, drawCards, saidUNO):
     if "KI" in playerName:
-        return playCardKI(hand, lastCard, cardStack, hasDrawnCard, playerName, direction, drawCards,saidUNO)
-    # TODO better handling with ^c, ^d
-    #Color choose with ki geht per modus?
+        return playCardKI(hand, lastCard, cardStack, hasDrawnCard, playerName, direction, drawCards, saidUNO)
     else:
         whichCard = input("Which Card you want to play: ")
         if whichCard == "d" or whichCard == "D":
@@ -112,54 +109,47 @@ def playCard(hand, lastCard, cardStack, hasDrawnCard, playerName, direction, dra
                     hand.append(drawCard(cardStack))
                 drawCards[1] = 1
                 sortHand(hand)
-                #TODO geht nicht
                 return lastCard
             elif hasDrawnCard == False:
-                hand.append(drawCard(cardStack))  # Fehler?
+                hand.append(drawCard(cardStack))
                 sortHand(hand)
                 hasDrawnCard = True
                 CurrentScreen.showCurrentScreen(
                     hand, direction, lastCard, playerName, drawCards)
             else:
                 print("You already have drawn a card!")
-            # TODO Stackoverflow how can i prevent 5 paramters and more
-            return playCard(hand, lastCard, cardStack, hasDrawnCard, playerName, direction, drawCards,saidUNO)
+            return playCard(hand, lastCard, cardStack, hasDrawnCard, playerName, direction, drawCards, saidUNO)
         if whichCard == "p" or whichCard == "P":
-            # pass Turn
             if(hasDrawnCard == True):
                 return lastCard
             print("You first have to draw a card!")
-            return playCard(hand, lastCard, cardStack, hasDrawnCard, playerName, direction, drawCards,saidUNO)
+            return playCard(hand, lastCard, cardStack, hasDrawnCard, playerName, direction, drawCards, saidUNO)
         if whichCard == "u" or whichCard == "U":
             saidUNO = True
-            return playCard(hand, lastCard, cardStack, hasDrawnCard, playerName, direction, drawCards,saidUNO)
+            return playCard(hand, lastCard, cardStack, hasDrawnCard, playerName, direction, drawCards, saidUNO)
         try:
             if(canBeThrown(hand[int(whichCard)], lastCard)):
                 if(drawCards[0] > 0 and (hand[int(whichCard)].getValue() != "draw2" and hand[int(whichCard)].getValue != "draw4")):
                     print("draw cards or play +x card!")
-                    return playCard(hand, lastCard, cardStack, hasDrawnCard, playerName, direction, drawCards,saidUNO)
+                    return playCard(hand, lastCard, cardStack, hasDrawnCard, playerName, direction, drawCards, saidUNO)
                 thrownCard = hand.pop(int(whichCard))
                 if(len(hand) == 1 and saidUNO == False):
                     print("You forgot to say UNO! Now you have to draw 1 card!")
                     hand.append(drawCard(cardStack))
                     input("Press any key!")
                 return thrownCard
-                # wenn karte geschmissen, aber nicht uno gesagt, dann wird geworfene Karte nicht angezeigt
-                # wenn geworfene Karte dann noch special ist, wird nicht aktion ausgeführt
             else:
                 print("Can't be thrown!")
-                return playCard(hand, lastCard, cardStack, hasDrawnCard, playerName, direction, drawCards,saidUNO)
+                return playCard(hand, lastCard, cardStack, hasDrawnCard, playerName, direction, drawCards, saidUNO)
         except:
             print("Error!")
-            return playCard(hand, lastCard, cardStack, hasDrawnCard, playerName, direction, drawCards,saidUNO)
-
+            return playCard(hand, lastCard, cardStack, hasDrawnCard, playerName, direction, drawCards, saidUNO)
 
 
 def getNames(numberOfPlayers):
     names = []
     for i in range(numberOfPlayers):
         inList = True
-        #todo hier weiter, damit namen alle unique
         while inList:
             name = input("What's the name of Player " + str(i + 1) + " ")
             if name not in names:
@@ -168,8 +158,6 @@ def getNames(numberOfPlayers):
                 print("Name already in use")
         names.append(name)
     return names
-
-# TODO dont draw 2 card in one round
 
 
 def sortHand(hand):
@@ -184,15 +172,14 @@ def sortHand(hand):
     return hand
 
 
-#TODO andere Namen Karten
-
 def someHasEnoughtPoints(allPoints):
     i = 0
-    for points in  allPoints:
+    for points in allPoints:
         if(points > 100):
             return i
-        i+=1
+        i += 1
     return -1
+
 
 def initPointsOfPlayers(numberOfPlayers):
     points = []
@@ -200,21 +187,24 @@ def initPointsOfPlayers(numberOfPlayers):
         points.append(0)
     return points
 
-def givePersonPoints(hands,winningPerson,pointsOfPlayers):
+
+def givePersonPoints(hands, winningPerson, pointsOfPlayers):
     points = 0
     for hand in hands:
         for card in hand:
-            points+=card.value.value
-    pointsOfPlayers[winningPerson]+=points
+            points += card.value.value
+    pointsOfPlayers[winningPerson] += points
+
 
 def getKINames(numberOfKI):
     names = []
     for i in range(numberOfKI):
-        names.append("KI-"+str(i))
+        names.append("KI-" + str(i))
     return names
 
-def playCardKI(hand, lastCard, cardStack, hasDrawnCard, playerName, direction, drawCards,saidUNO):
-    if(drawCards[0]>0):
+
+def playCardKI(hand, lastCard, cardStack, hasDrawnCard, playerName, direction, drawCards, saidUNO):
+    if(drawCards[0] > 0):
         for i in range(len(hand)):
             if hand[i].getValue() == "draw2" or hand[i].getValue() == "draw4":
                 return hand.pop(i)
@@ -222,12 +212,11 @@ def playCardKI(hand, lastCard, cardStack, hasDrawnCard, playerName, direction, d
             hand.append(drawCard(cardStack))
         return lastCard
     for i in range(len(hand)):
-        if(canBeThrown(hand[i],lastCard)):
+        if(canBeThrown(hand[i], lastCard)):
             return hand.pop(i)
     hand.append(drawCard(cardStack))
     sortHand(hand)
-    # TODO Colormode machen
     for i in range(len(hand)):
-        if(canBeThrown(hand[i],lastCard)):
+        if(canBeThrown(hand[i], lastCard)):
             return hand.pop(i)
     return lastCard

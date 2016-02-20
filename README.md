@@ -19,7 +19,7 @@ This is a UNO Card Game, completely written in Python 3
 - How to implement cards without color?             ✓
 - How to look, if thrown card is valid?             ✓
 - What to do, if you have to pass?                  ✓
-- play to 100 Points
+- play to 100 Points                                ✓
 - sort Hand                                         ✓
 - don't draw 2 cards                                ✓
 - change color with card                            ✓
